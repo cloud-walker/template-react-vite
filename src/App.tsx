@@ -1,18 +1,33 @@
-import {useState} from 'react'
+import {useMutation, useQuery, useQueryClient} from 'react-query'
 
+import {getCount, putCount} from './count'
 import {Counter} from './Counter'
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const queryClient = useQueryClient()
+  const query = useQuery({queryKey: ['count'], queryFn: getCount})
+  const mutation = useMutation(putCount, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('count')
+    },
+  })
+
+  if (query.isError) {
+    return <p>Something went wrong.</p>
+  }
+
+  if (query.isLoading || query.isIdle) {
+    return <p>Loading...</p>
+  }
 
   return (
     <Counter
-      value={count}
+      value={query.data}
       onDecrement={() => {
-        setCount(count - 1)
+        mutation.mutate({count: query.data - 1})
       }}
       onIncrement={() => {
-        setCount(count + 1)
+        mutation.mutate({count: query.data + 1})
       }}
     />
   )

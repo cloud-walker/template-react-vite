@@ -11,9 +11,9 @@ export function Counter({
 }) {
   return (
     <>
-      <button onClick={onIncrement}>{'-1'}</button>
+      <button onClick={onDecrement}>{'-1'}</button>
       <output>{value}</output>
-      <button onClick={onDecrement}>{'+1'}</button>
+      <button onClick={onIncrement}>{'+1'}</button>
     </>
   )
 }

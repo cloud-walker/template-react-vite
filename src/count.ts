@@ -1,8 +1,9 @@
 export type Count = number
 
-type ResponseGetCount = Count
+export type ResponseGetCount = Count
 
-type ResponsePutCount = Count
+export type PayloadPutCount = {count: Count}
+export type ResponsePutCount = Count
 
 export async function getCount() {
   const res = await fetch('http://fake-backend.com/count')
@@ -10,7 +11,7 @@ export async function getCount() {
   return body
 }
 
-export async function putCount(payload: unknown) {
+export async function putCount(payload: PayloadPutCount) {
   const res = await fetch('http://fake-backend.com/count', {
     method: 'PUT',
     headers: {
