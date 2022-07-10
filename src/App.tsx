@@ -3,7 +3,7 @@ import {useMutation, useQuery, useQueryClient} from 'react-query'
 import {getCount, putCount} from './count'
 import {Counter} from './Counter'
 
-export function hApp() {
+export function App() {
   const queryClient = useQueryClient()
   const query = useQuery({queryKey: ['count'], queryFn: getCount})
   const mutation = useMutation(putCount, {
@@ -11,10 +11,8 @@ export function hApp() {
       queryClient.invalidateQueries('count')
     },
   })
-  console.log(query)
 
   if (query.isError) {
-    console.log('???')
     return <p>Something went wrong.</p>
   }
 
@@ -22,7 +20,6 @@ export function hApp() {
     return <p>Loading...</p>
   }
 
-  console.log(query.data)
   return (
     <Counter
       value={query.data}

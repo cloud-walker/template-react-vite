@@ -7,6 +7,11 @@ export type ResponsePutCount = Count
 
 export async function getCount() {
   const res = await fetch('http://fake-backend.com/count')
+
+  if (!res.ok) {
+    throw res
+  }
+
   const body: ResponseGetCount = await res.json()
   return body
 }
@@ -19,6 +24,11 @@ export async function putCount(payload: PayloadPutCount) {
     },
     body: JSON.stringify(payload),
   })
+
+  if (!res.ok) {
+    throw res
+  }
+
   const body: ResponsePutCount = await res.json()
   return body
 }
