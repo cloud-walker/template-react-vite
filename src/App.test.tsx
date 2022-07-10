@@ -1,6 +1,6 @@
 import {expect, test} from 'vitest'
 
-import {App} from './App'
+import {Demo} from './App.stories'
 import {makeGetCountMswHandler} from './count.mocks'
 import {mswServer} from './mswServer'
 import {
@@ -12,12 +12,17 @@ import {
 } from './testUtils'
 
 test('can increment counter', async () => {
-  render(<App />)
+  render(<Demo />)
+
 
   await waitForElementToBeRemoved(screen.queryByText('Loading...'))
+  
 
+  const title = screen.getByRole('heading', {name: 'App'})
   const buttonInc = screen.getByRole('button', {name: '+1'})
   const output = screen.getByText('0')
+
+  expect(title).toBeVisible()
 
   expect(buttonInc).toBeEnabled()
   expect(buttonInc).toBeVisible()
@@ -32,7 +37,7 @@ test('can increment counter', async () => {
 })
 
 test('can decrement counter', async () => {
-  render(<App />)
+  render(<Demo />)
 
   await waitForElementToBeRemoved(screen.queryByText('Loading...'))
 
@@ -59,7 +64,7 @@ test('api error', async () => {
     ),
   )
 
-  render(<App />)
+  render(<Demo />)
 
   await waitForElementToBeRemoved(() => screen.queryByText('Loading...'))
 

@@ -9,7 +9,11 @@ import {getMockModules} from './mocks'
 if (import.meta.env.DEV) {
   const modules = await getMockModules()
 
-  const handlers = modules.flatMap((mod) => mod.handlers)
+  modules.forEach(mod => {
+    mod.seedData()
+  })
+
+  const handlers = modules.flatMap(mod => mod.handlers)
   const worker = setupWorker(...handlers)
 
   worker.start({onUnhandledRequest: 'error'})

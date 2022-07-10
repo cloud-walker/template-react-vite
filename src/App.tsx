@@ -21,14 +21,17 @@ export function App() {
   }
 
   return (
-    <Counter
-      value={query.data}
-      onDecrement={() => {
-        mutation.mutate({count: query.data - 1})
-      }}
-      onIncrement={() => {
-        mutation.mutate({count: query.data + 1})
-      }}
-    />
+    <>
+      <h1>App</h1>
+      <Counter
+        value={query.data}
+        onDecrement={() => {
+          mutation.mutate({count: query.data - 1})
+        }}
+        onIncrement={() => {
+          mutation.mutate({count: query.data + 1})
+        }}
+      />
+    </>
   )
 }
