@@ -1,9 +1,15 @@
 import {DefaultBodyType, PathParams, rest} from 'msw'
 import {z} from 'zod'
 
-import {ResponseGetCount, ResponsePutCount} from './count'
+import {Count, ResponseGetCount, ResponsePutCount} from './count'
 
-let count = 0
+const initialCount = 0
+
+let count: Count
+
+export function seedData() {
+  count = initialCount
+}
 
 export const handlers = [
   rest.get<DefaultBodyType, PathParams, ResponseGetCount>(
