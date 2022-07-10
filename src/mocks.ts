@@ -1,4 +1,10 @@
-import {RestHandler} from 'msw'
+import {
+  ResponseResolver,
+  rest,
+  RestContext,
+  RestHandler,
+  RestRequest,
+} from 'msw'
 
 export type MockModule = {
   handlers: Array<RestHandler>
@@ -12,4 +18,23 @@ export async function getMockModules(): Promise<Array<MockModule>> {
     Object.values(importsMap).map((importModule) => importModule()),
   )
   return modules
+}
+
+export function makeMswRestHandler<TResponse>({
+  path,
+  method,
+}: {
+  path: string
+  method: 'get' | 'post' | 'put' | 'delete'
+}) {
+  function _makeMswRestHandler(
+    handler: ResponseResolver<
+      RestRequest,
+      RestContext,
+      TResponse | {message: string}
+    >,
+  ) {
+    return rest[method](path, handler)
+  }
+  return _makeMswRestHandler
 }

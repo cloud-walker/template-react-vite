@@ -6,10 +6,13 @@ export default defineConfig({
   plugins: [react()],
   test: {
     setupFiles: './src/setupVitest.ts',
-    // environment: 'happy-dom',
+
+    /**
+     * We want to use happy-dom here, but it currently have a compatibility bug
+     * with @testing-library/user-event.
+     *
+     * @link https://github.com/capricorn86/happy-dom/issues/467
+     */
     environment: 'jsdom',
-    coverage: {
-      exclude: ['**/*.mocks.ts'],
-    },
   },
 })

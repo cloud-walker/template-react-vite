@@ -1,7 +1,7 @@
 import {z} from 'zod'
 
 import {Count, ResponseGetCount, ResponsePutCount} from './count'
-import {makeMswHandler} from './testUtils'
+import {makeMswRestHandler} from './mocks'
 
 const initialData = 0
 
@@ -11,12 +11,12 @@ export function seedData() {
   data = initialData
 }
 
-export const makeGetCountMswHandler = makeMswHandler<ResponseGetCount>({
+export const makeGetCountMswHandler = makeMswRestHandler<ResponseGetCount>({
   path: '*/count',
   method: 'get',
 })
 
-export const makePutCountMswHandler = makeMswHandler<
+export const makePutCountMswHandler = makeMswRestHandler<
   ResponsePutCount | {message: string}
 >({
   path: '*/count',
