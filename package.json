@@ -8,15 +8,17 @@
     "coverage": "vitest run --coverage",
     "dev": "vite",
     "dev:stories": "ladle serve",
-    "build": "vite build",
-    "build:stories": "ladle build",
-    "preview": "vite preview"
+    "build": "vite build --outDir=build-app",
+    "build:stories": "ladle build --outDir=build-stories",
+    "serve": "serve build-app -n",
+    "serve:stories": "serve build-stories -n"
   },
   "dependencies": {
     "@ladle/react": "^1.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-query": "^3.39.1",
+    "serve": "^13.0.4",
     "zod": "^3.17.3"
   },
   "devDependencies": {
