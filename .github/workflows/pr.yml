@@ -1,0 +1,13 @@
+name: pr
+
+on: 
+  pull_request:
+    types: [closed]
+
+jobs:
+  checks:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    if: github.event.pull_request.merged == true
+    steps:
+      - run: echo "Hello"
