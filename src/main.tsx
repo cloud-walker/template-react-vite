@@ -1,19 +1,15 @@
+import {setupWorker} from 'msw'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {RestHandler, setupWorker} from 'msw'
 import {QueryClient, QueryClientProvider} from 'react-query'
 
 import {App} from './App'
+import {getMockModules} from './mocks'
 
 if (import.meta.env.DEV) {
-  type MSWModule = {handlers: Array<RestHandler>}
+  const modules = await getMockModules()
 
-  const importsMap = import.meta.glob<MSWModule>('./**/*.mocks.ts')
-  const modules = await Promise.all(
-    Object.values(importsMap).map((importModule) => importModule()),
-  )
   const handlers = modules.flatMap((mod) => mod.handlers)
-
   const worker = setupWorker(...handlers)
 
   worker.start({onUnhandledRequest: 'error'})
