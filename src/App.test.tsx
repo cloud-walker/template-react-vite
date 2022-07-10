@@ -16,9 +16,13 @@ test('can increment counter', async () => {
 
 
   await waitForElementToBeRemoved(screen.queryByText('Loading...'))
+  
 
+  const title = screen.getByRole('heading', {name: 'App'})
   const buttonInc = screen.getByRole('button', {name: '+1'})
   const output = screen.getByText('0')
+
+  expect(title).toBeVisible()
 
   expect(buttonInc).toBeEnabled()
   expect(buttonInc).toBeVisible()
