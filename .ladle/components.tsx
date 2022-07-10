@@ -7,16 +7,16 @@ import {getMockModules} from '../src/mocks'
 
 const mockModules = await getMockModules()
 
-mockModules.forEach((mod) => {
+mockModules.forEach(mod => {
   mod.seedData()
 })
 
-const handlers = mockModules.flatMap((mod) => mod.handlers)
+const handlers = mockModules.flatMap(mod => mod.handlers)
 
 const worker = setupWorker(...handlers)
 
 worker.start({
-  onUnhandledRequest: (req) => {
+  onUnhandledRequest: req => {
     if (req.url.pathname.includes('@fs')) {
       return
     }
