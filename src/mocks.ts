@@ -9,7 +9,6 @@ import {
 export type MockModule = {
   handlers: Array<RestHandler>
   seedData: () => void
-  reseedData: () => void
 }
 
 export async function getMockModules(): Promise<Array<MockModule>> {
@@ -27,7 +26,7 @@ export function makeMswRestHandler<TResponse>({
   path: string
   method: 'get' | 'post' | 'put' | 'delete'
 }) {
-  function _makeMswRestHandler(
+  return function _makeMswRestHandler(
     handler: ResponseResolver<
       RestRequest,
       RestContext,
@@ -36,5 +35,4 @@ export function makeMswRestHandler<TResponse>({
   ) {
     return rest[method](path, handler)
   }
-  return _makeMswRestHandler
 }
